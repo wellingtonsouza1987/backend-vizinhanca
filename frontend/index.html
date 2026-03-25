@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Teste PI</title>
+</head>
+<body>
+
+<h2>Registrar Ocorrência</h2>
+
+<form id="form">
+    <label>Tipo:</label><br>
+    <input type="text" id="tipo"><br><br>
+
+    <label>Descrição:</label><br>
+    <textarea id="descricao"></textarea><br><br>
+
+    <button type="submit">Enviar</button>
+</form>
+
+<script>
+document.getElementById('form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const tipo = document.getElementById('tipo').value;
+    const descricao = document.getElementById('descricao').value;
+
+    const resposta = await fetch('http://localhost:3000/api/ocorrencias', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ tipo, descricao })
+    });
+
+    const dados = await resposta.json();
+
+    alert(dados.message);
+});
+</script>
+
+</body>
+</html>
